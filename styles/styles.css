@@ -1,0 +1,92 @@
+body {
+    font-family: 'Titillium Web', sans-serif;
+    height: 100vh;
+    margin: 0;
+}
+
+header {
+    height: 16%;
+    background-color: gray;
+}
+
+main {
+    height: 84%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: inherit;
+}
+
+main input{
+    margin: 1rem 0 1rem 0;
+    width: 30%;
+    max-width: 22rem;
+    height: 5rem;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+#game {
+    display: flex;
+    position: absolute;
+    top: 16%;
+    right: 120%;
+    height: 84%;
+    width: 0;
+    opacity: 1;
+    transition: all ease-in .5s;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+}
+
+#game:target {
+    opacity: 1;
+    display: flex;
+    position: absolute;
+    top: 16%;
+    left: 0;
+    width: 100%;
+    height: 84%;
+    z-index: 1;
+    background:  white;
+}
+
+#game:target .buttons input {
+    display: none;
+}
+
+#game table {
+    margin: .7rem .5rem;
+}
+
+#game table td {
+    margin: 1rem .8rem;
+    padding: 1rem;
+}
+
+#game table + div {
+    margin: .7rem .5rem;
+}
+
+#game table + div p {
+    letter-spacing: 1rem;
+}
+
+#game .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 30%;
+    margin-top: 1rem;
+}
+
+#game:target .buttons input {
+    display: flex;
+    margin: .7rem .5rem;
+    padding: 1rem 1.8rem;
+    height: 80%;
+}

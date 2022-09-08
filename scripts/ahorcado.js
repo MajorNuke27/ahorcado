@@ -1,8 +1,18 @@
 import Game from "./game.js";
 
-const game = new Game();
+let game = new Game();
 
-document.getElementById("newgame").addEventListener("click", evt => game.newGame());
+document.getElementById("init").onclick = () => {
+    window.location.href= '#game';
+    game = new Game();
+};
+
+document.getElementById("new-game").addEventListener("click", evt => game.newGame());
+
+document.getElementById("end").onclick = () => {
+    window.location.href= '#principal';
+    game.newGame();
+};
 
 /*
 

@@ -8,7 +8,8 @@ export default class Game {
     static #words = ["CASCADA", "JUGUETE", "MADERA", "BUHO", "MURCIELAGO", "JAVA", "MUEBLE", "PROGRAMAR", "PLUMA", "ALURA", "ORACLE"];//Contiene las palabras a utlizar en el juego.
 
     constructor() {
-        
+
+        this.#row = document.getElementById("palabra");
         this.newGame();
 
         /*
@@ -45,7 +46,7 @@ export default class Game {
 
         //Limpia las filas de la tabla
         let newRow = document.createElement("tr");
-        newRow.classList.add("palabra");
+        newRow.setAttribute('id',"palabra");
         this.#row.replaceWith(newRow);
         this.#row = newRow;
         this.#rowFailed.innerText = '';
