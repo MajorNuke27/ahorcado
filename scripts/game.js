@@ -5,6 +5,7 @@ export default class Game {
     #rowFailed = document.getElementById("error");//Fila que contiene las letras incorrectas.
     #tryCount = 0;//Conteo de los intentos del usuario.
     #isOver = false;//Variable que controla si el juego ah terminado.
+    #isLost = false;//Inidca si el juego se perdio (no se adivino la letra)
     static #words = ["CASCADA", "JUGUETE", "MADERA", "BUHO", "MURCIELAGO", "JAVA", "MUEBLE", "PROGRAMAR", "PLUMA", "ALURA", "ORACLE"];//Contiene las palabras a utlizar en el juego.
     
 
@@ -14,6 +15,7 @@ export default class Game {
         document.addEventListener('keydown', this.#handleKeyboard);
 
         this.#isOver = false;
+        this.#isLost = false;
         this.#tryCount = 0;
 
         //Limpia las filas de la tabla.
@@ -85,6 +87,7 @@ export default class Game {
 
         if(this.#tryCount == 9){//Verifica los intentos
             this.#isOver = true;
+            this.#isLost = true;
             return;
         } 
 
@@ -99,12 +102,6 @@ export default class Game {
     }
 
     #handleKeyboard = (evt) => {//Implementa la logica para el manejo de las teclas presionadas por el usuario
-        
-        //Verificia si el juego aun no termina
-        if(this.#isOver) {
-            evt.preventDefault();
-            return;
-        }
 
         let letter = evt.key.toUpperCase();
 
@@ -116,10 +113,50 @@ export default class Game {
             this.#updateGameStatus();
 
         }
+
+        //Verificia si el juego aun no termina
+        if(this.#isOver) {
+            evt.preventDefault();
+            this.endGame();
+            
+            Swal.fire({//Muestra mensaje de 
+                title: this.#isLost ? 'Perdiste' : 'Ganaste!',
+
+                html: this.#isLost ? 
+                    'La palabrea era: '+this.#word.join('')+'<br>Intentalo de nuevo!' : 
+                    'Felicidades, adivinaste la palabra: '+this.#word.join(''),
+
+                iconHtml: this.#isLost ? '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" delay="2000" trigger="loop" colors="primary:#545454,secondary:#e83a30" style="width: 12rem; height: 12rem;"></lord-icon>'
+                : '<lord-icon src="https://cdn.lordicon.com/rcopausw.json" trigger="loop" delay="1500" colors="primary:#121331,secondary:#08a88a" style="width:250px;height: 180%"></lord-icon>',
+                customClass: {
+                    icon: 'no-border'
+                },
+
+                allowOutsideClick: false,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Nuevo juego',
+                cancelButtonText: 'Menu principal'
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    this.newGame();
+                    return;
+                }
+                window.location.href = '#principal';
+            });
+
+            return;
+        }
     }
 
     addWord(word) {//Añade una palabra al juego
         Game.#words.push(word);
+    }
+
+    get isLost() {
+        return this.#isLost;
     }
 
     get isOver() {
