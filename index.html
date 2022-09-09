@@ -27,20 +27,24 @@
                 <input type="button" id="new-word" value="Agregar nueva palabra">
             </section>
 
-            <section id="game" class="container">
-                <canvas id="horca" width="300" height="400" style="background-color: grey;"></canvas>
+            <section class="container" id="nueva-palabra">
 
-                <table>
+            </section>
+
+            <section id="game" class="container">
+                <canvas id="horca" class="container-children" style="background-color: grey;"></canvas>
+
+                <table class="container-children">
                     <tbody>
                         <tr id="palabra"></tr>
                     </tbody>
                 </table >
 
-                <div >
+                <div class="container-children">
                     <p id="error"></p>
                 </div>
     
-                <div class="buttons">
+                <div id="buttons" class="container-children buttons">
                     <input type="button" id="new-game" value="Nuevo juego">
                     <input type="button" id="end" value="Finalizar partida">
                 </div>

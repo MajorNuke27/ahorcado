@@ -6,8 +6,21 @@ export default class Game {
     #tryCount = 0;//Conteo de los intentos del usuario.
     #isOver = false;//Variable que controla si el juego ah terminado.
     #isLost = false;//Inidca si el juego se perdio (no se adivino la letra)
+    #canvas = document.querySelector('canvas');
+    #pincel = this.#canvas.getContext('2d');
     static #words = ["CASCADA", "JUGUETE", "MADERA", "BUHO", "MURCIELAGO", "JAVA", "MUEBLE", "PROGRAMAR", "PLUMA", "ALURA", "ORACLE"];//Contiene las palabras a utlizar en el juego.
     
+    constructor(){
+        
+        this.#pincel.strokeStyle = '#ffffff';
+        this.#pincel.lineWidth = '3';
+
+        this.#pincel.beginPath();
+        this.#pincel.moveTo(10,500);
+        this.#pincel.lineTo(500,500);
+        this.#pincel.stroke();
+
+    }
 
     newGame() {//Restablece todos los elementos y variables del juego
 
@@ -23,7 +36,7 @@ export default class Game {
         newRow.setAttribute('id',"palabra");
         this.#row.replaceWith(newRow);
         this.#row = newRow;
-        this.#rowFailed.innerText = '';
+        this.#rowFailed.innerText = ' ';
 
         //Obtiene una nueva palabra de forma aleatoria.
         let wordIndex = Math.floor(Math.random()*Game.#words.length);
@@ -32,7 +45,6 @@ export default class Game {
         //Inicializa la fila que contiene la palabra adivinar.
         for(let i = 0 ; i < this.#word.length ; i++) {
             let data = document.createElement("td");
-            data.append("_");
             this.#row.append(data);
         }
 
@@ -94,11 +106,17 @@ export default class Game {
         let chars = this.#row.childNodes;
 
         for(let i = 0 ; i < chars.length ; i++) {//Verifica si el usuario adivino la palabra
-            if (chars[i].textContent == '_') return;
+            if (chars[i].textContent == '') return;
         }
 
         this.#isOver = true;
 
+    }
+
+    #draw() {
+        this
+
+        this.#canvas.beginPath();
     }
 
     #handleKeyboard = (evt) => {//Implementa la logica para el manejo de las teclas presionadas por el usuario
@@ -108,7 +126,10 @@ export default class Game {
         //Verifica que la tecla presionada sea una letra
         if(/^[A-Z]$/.test(letter)) {
 
-            if(!this.#isCorrect(letter)) this.#tryCount++;
+            if(!this.#isCorrect(letter)){
+                this.#tryCount++;
+                this.#draw();
+            }
 
             this.#updateGameStatus();
 
@@ -145,6 +166,7 @@ export default class Game {
                     return;
                 }
                 window.location.href = '#principal';
+                document.getElementById('end').click();
             });
 
             return;
