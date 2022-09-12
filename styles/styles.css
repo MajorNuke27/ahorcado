@@ -160,7 +160,7 @@ main {
     }
 
     #game:target canvas {
-        min-height: 10rem;
+        min-height: 15rem;
     }
 
     #game:target table tr{

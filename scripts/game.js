@@ -1,5 +1,21 @@
 export default class Game {
     
+    //Contiene las coordenadas para dibujar la horca
+    #coordinates ={
+        1: [45,16,180,16],
+        2: [180,16,180,60],
+        3: () => {
+            this.#pincel.beginPath();
+            this.#pincel.arc(180, 85, 25, 0, 2*Math.PI);
+            this.#pincel.stroke();
+        },
+        4: [180,110,180,140],
+        5: [180,140,140,160],
+        6: [180,140,220,160],
+        7: [180,140,180,260],
+        8: [180,260,210,300],
+        9: [180,260,150,300],
+    }
     #word = [];//Contiene la palabra a adivinar en fomra de un arreglo de caracteres.
     #row = document.getElementById("palabra");//Fila que contiene la palabra a adivinar.
     #rowFailed = document.getElementById("error");//Fila que contiene las letras incorrectas.
@@ -14,11 +30,6 @@ export default class Game {
         
         this.#pincel.strokeStyle = '#ffffff';
         this.#pincel.lineWidth = '3';
-
-        this.#pincel.beginPath();
-        this.#pincel.moveTo(10,500);
-        this.#pincel.lineTo(500,500);
-        this.#pincel.stroke();
 
     }
 
@@ -36,7 +47,18 @@ export default class Game {
         newRow.setAttribute('id',"palabra");
         this.#row.replaceWith(newRow);
         this.#row = newRow;
-        this.#rowFailed.innerText = ' ';
+        this.#rowFailed.innerText = '';
+
+        //Limpia el canvas y dibuja las lineas base
+        this.#pincel.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+        this.#pincel.beginPath();
+        this.#pincel.moveTo(25, 370);
+        this.#pincel.lineTo(275, 370);
+        this.#pincel.stroke();
+
+        this.#pincel.moveTo(45, 370);
+        this.#pincel.lineTo(45, 15);
+        this.#pincel.stroke();
 
         //Obtiene una nueva palabra de forma aleatoria.
         let wordIndex = Math.floor(Math.random()*Game.#words.length);
@@ -113,10 +135,21 @@ export default class Game {
 
     }
 
-    #draw() {
-        this
+    #draw() {//Dibuja un elemento de la horca segun el numero de intentos que lleve el jugador
 
-        this.#canvas.beginPath();
+        const line = this.#coordinates[this.#tryCount];
+
+        //Si estamos en el intento 3, tendremos que dibujar un arco cuya funcion esta definida en this.#coordinates
+        if(this.#tryCount == 3) {
+            line();
+            return;
+        }
+
+        this.#pincel.beginPath();
+        this.#pincel.moveTo(line[0], line[1]);
+        this.#pincel.lineTo(line[2], line[3]);
+        this.#pincel.stroke();
+
     }
 
     #handleKeyboard = (evt) => {//Implementa la logica para el manejo de las teclas presionadas por el usuario
@@ -165,7 +198,6 @@ export default class Game {
                     this.newGame();
                     return;
                 }
-                window.location.href = '#principal';
                 document.getElementById('end').click();
             });
 
