@@ -60,6 +60,17 @@ export default class Game {
         this.#pincel.lineTo(45, 15);
         this.#pincel.stroke();
 
+        //Limpia el canvas y dibuja las lineas base
+        this.#pincel.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+        this.#pincel.beginPath();
+        this.#pincel.moveTo(25, 370);
+        this.#pincel.lineTo(275, 370);
+        this.#pincel.stroke();
+
+        this.#pincel.moveTo(45, 370);
+        this.#pincel.lineTo(45, 15);
+        this.#pincel.stroke();
+
         //Obtiene una nueva palabra de forma aleatoria.
         let wordIndex = Math.floor(Math.random()*Game.#words.length);
         this.#word = Game.#words[wordIndex].split('');
