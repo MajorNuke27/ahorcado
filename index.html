@@ -17,7 +17,13 @@
     <body id="body">
 
         <header>
-
+            <div id="toggle-teclado" style="display: none;">
+                <label for="toggle" id="teclado">Teclado en pantalla</label>
+                <label class="toggle-control">
+                    <input id="toggle" type="checkbox">
+                    <span class="control"></span>
+                </label>
+            </div>
         </header>
 
         <main>
@@ -34,17 +40,51 @@
             <section id="game" class="container">
                 <canvas id="horca" width="300" height="400" class="container-children" style="background-color: grey;"></canvas>
 
-                <table class="container-children">
-                    <tbody>
-                        <tr id="palabra"></tr>
-                    </tbody>
-                </table >
+                <div id="interaccion" class="container-children">
+                    <table>
+                        <tbody>
+                            <tr id="palabra"></tr>
+                        </tbody>
+                    </table >
+                    
+                    <div>
+                        <p id="error"></p>
+                    </div>
 
-                <div class="container-children">
-                    <p id="error"></p>
+                    <section id="teclado-virtual">
+
+                        <button class="key" type="button">Q</button>
+                        <button class="key" type="button">W</button>
+                        <button class="key" type="button">E</button>
+                        <button class="key" type="button">R</button>
+                        <button class="key" type="button">T</button>
+                        <button class="key" type="button">Y</button>
+                        <button class="key" type="button">U</button>
+                        <button class="key" type="button">I</button>
+                        <button class="key" type="button">O</button>
+                        <button class="key" type="button">P</button>
+                        <button class="key" type="button">A</button>
+                        <button class="key" type="button">S</button>
+                        <button class="key" type="button">D</button>
+                        <button class="key" type="button">F</button>
+                        <button class="key" type="button">G</button>
+                        <button class="key" type="button">H</button>
+                        <button class="key" type="button">J</button>
+                        <button class="key" type="button">K</button>
+                        <button class="key" type="button">L</button>
+                        <button class="key" type="button">Z</button>
+                        <button class="key" type="button">X</button>
+                        <button class="key" type="button">C</button>
+                        <button class="key" type="button">V</button>
+                        <button class="key" type="button">B</button>
+                        <button class="key" type="button">N</button>
+                        <button class="key" type="button">M</button>
+
+                    </section>
+
                 </div>
     
-                <div id="buttons" class="container-children buttons">
+                <div id="buttons" class="container-children">
                     <input type="button" id="new-game" value="Nuevo juego">
                     <input type="button" id="end" value="Finalizar partida">
                 </div>
