@@ -21,6 +21,7 @@ main {
     height: 88%;
 }
 
+/*Modificacion de las alertas*/
 .no-border {
     border: 0 !important;
 }
@@ -107,7 +108,7 @@ main {
 }
 
 .container-children {
-    display: none;
+    display: none !important;
     width: 0;
     opacity: 0;
 }
