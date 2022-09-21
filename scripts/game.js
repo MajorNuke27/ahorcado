@@ -28,7 +28,7 @@ export default class Game {
     
     constructor(){
         
-        this.#pincel.strokeStyle = '#ffffff';
+        this.#pincel.strokeStyle = '#17B794';
         this.#pincel.lineWidth = '3';
 
     }
@@ -128,7 +128,7 @@ export default class Game {
 
     #updateGameStatus() {//Actualiza el estado del juego
 
-        //Si el usuario agoto sus intentos o adivino la palabra, el jugo habra terminado.
+        //Si el usuario agoto sus intentos o adivino la palabra, el juego habra terminado.
 
         if(this.#tryCount == 9){//Verifica los intentos
             this.#isOver = true;
@@ -199,17 +199,24 @@ export default class Game {
 
                 allowOutsideClick: false,
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#17B794',
+                cancelButtonColor: '#323232',
                 confirmButtonText: 'Nuevo juego',
                 cancelButtonText: 'Menu principal'
             })
             .then((result) => {
-                if (result.isConfirmed) {
-                    this.newGame();
-                    return;
-                }
-                document.getElementById('end').click();
+
+                if (result.isConfirmed) this.newGame();
+                else document.getElementById('end').click();
+
+                //Restablece el estilo de las teclas del teclado virtual
+                const keys = document.getElementsByClassName('key');
+
+                for (let i = 0; i < keys.length; i++) {
+                    const element = keys[i];
+                    element.style = '';
+                }//fin for
+
             });
 
             return;

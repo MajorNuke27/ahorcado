@@ -1,6 +1,7 @@
 import Game from "./game.js";
 
 let game = new Game();
+let tries = 0;
 
 const toggleContainer = document.getElementById('toggle-teclado');
 const toggle = document.getElementById('toggle');
@@ -10,6 +11,14 @@ const keys = document.getElementsByClassName('key');
 const sectionPalabra = document.getElementById('nueva-palabra');
 const inputPalabra = document.getElementsByName('palabra')[0];
 
+
+function resetKeys() {//Reestablece el estilo de las teclas
+    for (let i = 0; i < keys.length; i++) {
+        const element = keys[i];
+        element.style = '';
+    }
+    tries = 0;
+}
 
 //Valida que los valores ingresados en la pantalla de "Agregar palabra" 
 inputPalabra.addEventListener('keydown', (evt) => {
@@ -28,7 +37,7 @@ inputPalabra.addEventListener('keydown', (evt) => {
 
     //En caso de que la longitud de la palabra ingresada halla llegado al limite, se mostrara una animacion
     if(inputPalabra.value.length == 8){
-        document.getElementById('max').animate({color : ['black', 'red'], offset: [0, .1], easing : 'ease-out'},2000);
+        document.getElementById('max').animate({color : ['#323232', '#E23E57', '#E23E57'], offset: [0, .1, .8], easing : 'ease-out'},1700);
     }
 
 });
@@ -41,6 +50,18 @@ for (let i = 0; i < keys.length; i++) {
 
     element.onclick = () => {
         document.dispatchEvent(new KeyboardEvent('keydown', {'key' : element.innerText}));
+
+        if(game.tryCount != tries) {
+            element.style.borderColor = '#BE3144';
+            element.style.color = '#BE3144'
+            tries = game.tryCount;
+        } 
+        else {
+            element.style.borderColor = '#17B794';
+            element.style.color = '#17B794'
+        }
+
+        if(game.isOver || game.isLost) tries = 0;
     }
 
 }
@@ -119,23 +140,27 @@ document.getElementById('push-word').onclick = () => {
     }
 
     //En caso de no haber ingresado nada, le mostrara una animacion al usuario
-    inputPalabra.animate({borderColor : ['black', 'red'], offset: [0, .1], easing : 'ease-out'},2000);
+    inputPalabra.animate({borderColor : ['#323232', '#E23E57'], offset: [0, .1], easing : 'ease-out'},2000);
 
 };
 
 
 //Establece la funcion del boton "Cancelar" en la pantalla de "Anhadir palabra"
 document.getElementById('cancel').onclick = () => {
-    sectionPalabra.className = 'container';//Muestra la pantalla
+    sectionPalabra.className = 'container';//Oculta la pantalla
+    inputPalabra.value = '';
 
-    sectionPalabra.childNodes.forEach(element => {//Muestra los hijos de la pantalla
+    sectionPalabra.childNodes.forEach(element => {//Oculta los hijos de la pantalla
         element.className = 'container-children';
     });
 };
 
 
 //Establece la funcion del boton "Nuevo juego"
-document.getElementById("new-game").onclick = () => game.newGame();
+document.getElementById("new-game").onclick = () => {
+    game.newGame();
+    resetKeys();
+}
 
 
 //Establece la funcion del boton "Finalizar partida"
@@ -148,7 +173,8 @@ document.getElementById("end").onclick = () => {
     sectionGame.childNodes.forEach(element => {
         element.className = 'container-children';
     });
-    
+
+    resetKeys();
     game.endGame();//Finaliza el juego
 
 };
