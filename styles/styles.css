@@ -41,8 +41,11 @@ header {
 }
 
 main {
-    height: 88%;
+    display: flex;
+    height: auto;
+    min-height: 88%;
     background-color: #EEEEEE;
+    align-items: center;
 }
 
 footer {
@@ -159,7 +162,6 @@ footer label {
 }
 
 .display-container {
-    position: absolute;
     display: flex;
     opacity: 1;
     right: 0;
@@ -184,17 +186,6 @@ footer label {
 }
 
 /*Pantalla principal*/
-#principal {
-    display: flex;
-    opacity: 1;
-    right: 0;
-    width: 100%;
-    height: inherit;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 #principal #init {
     border-color: #17B794;
     background-color: #17B79404;
@@ -202,6 +193,7 @@ footer label {
 }
 
 #principal input{
+    display: inline-block;
     margin: 1rem 0 1rem 0;
     font-size: 1rem;
     font: inherit;
@@ -426,12 +418,6 @@ footer label {
     }
 }
 
-@media screen and (max-width: 653px ) {
-    main {
-        min-height: -webkit-fill-available;
-    }
-}
-
 @media screen and (max-width: 768px ) {
 
     #principal input {
@@ -468,17 +454,25 @@ footer label {
         flex-wrap: wrap;
         flex-shrink: 50;
     }
+
+    footer label {
+        display: block;
+        font-size: .9rem;
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 590px) {
     #game #teclado-virtual {
         column-gap: .2rem;
         row-gap: .6rem;
-        max-width: 26rem;
+        max-width: 23rem;
         text-align: center;
+        margin-left: .2rem;
+        margin-right: .2rem;
     }
 
     #game #teclado-virtual .key {
-        width: 2.2rem;
+        width: 2rem;
     }
 }
