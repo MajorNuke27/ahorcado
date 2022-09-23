@@ -75,10 +75,23 @@ footer label {
     align-self: flex-start;
 }
 
+/*Header*/
+header #logo {
+    height: 56%;
+    align-self: center;
+    margin-right: auto;
+    margin-left: 2.5rem;
+}
+
+header #toggle-teclado {
+    margin-left: 3rem;
+}
+
 /*Toggle button teclado*/
 #teclado {
     align-self: center;
     color: #EEEEEE;
+    text-align: end;
 }
 
 .toggle-control {
