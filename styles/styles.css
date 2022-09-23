@@ -45,7 +45,7 @@ main {
     height: auto;
     min-height: 88%;
     background-color: #EEEEEE;
-    align-items: center;
+    align-items: stretch;
 }
 
 footer {
