@@ -57,8 +57,9 @@ inputPalabra.addEventListener('keydown', (evt) => {
 
     //En caso de que la longitud de la palabra ingresada halla llegado al limite, se mostrara una animacion
     if(inputPalabra.value.length == 8){
-        document.getElementById('max').animate({color : ['#323232', '#E23E57', '#E23E57'], offset: [0, .1, .8], easing : 'ease-out'},1700);
         evt.preventDefault();
+        inputPalabra.value = inputPalabra.value.substring(0, 8);
+        document.getElementById('max').animate({color : ['#323232', '#E23E57', '#E23E57'], offset: [0, .1, .8], easing : 'ease-out'},1700);
     }
 
 });
