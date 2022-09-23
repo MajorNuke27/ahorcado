@@ -5,12 +5,32 @@ let tries = 0;
 
 const toggleContainer = document.getElementById('toggle-teclado');
 const toggle = document.getElementById('toggle');
+const sectionPrincipal = document.getElementById('principal');
 const sectionGame = document.getElementById('game');
 const keyboard = document.getElementById('teclado-virtual');
 const keys = document.getElementsByClassName('key');
 const sectionPalabra = document.getElementById('nueva-palabra');
 const inputPalabra = document.getElementsByName('palabra')[0];
 
+function changeDisplay(section, display) {//Oculta o muestra los elementos de la seccion recibida
+    
+    if(display) {
+        section.className = 'display-container';//Muestra la seccion
+
+        section.childNodes.forEach(element => {//Muestra los hijos de la seccion
+            element.className = 'display-children';
+        });
+    }
+
+    else {
+        section.className = 'container';//Oculta la seccion
+
+        section.childNodes.forEach(element => {//Oculta los hijos de la seccion
+            element.className = 'container-children';
+        });
+    }
+
+}
 
 function resetKeys() {//Reestablece el estilo de las teclas
     for (let i = 0; i < keys.length; i++) {
@@ -23,7 +43,7 @@ function resetKeys() {//Reestablece el estilo de las teclas
 //Valida que los valores ingresados en la pantalla de "Agregar palabra" 
 inputPalabra.addEventListener('keydown', (evt) => {
     
-    //Permite el uso de las teclas de Home, End y las flechas de navegacion
+    //Permite el uso de las teclas de Home, End, Retroceso y las flechas de navegacion
     if(evt.key == 'Backspace' || 
     evt.key.includes('Arrow') || 
     evt.key == 'End' || 
@@ -103,11 +123,8 @@ document.getElementById("init").onclick = () => {
         });
     }
 
-    sectionGame.className = 'display-container';//Muestra la pantalla de juego
-
-    sectionGame.childNodes.forEach(element => {//Muestra los hijos de la pantall de juego
-        element.className = 'display-children';
-    });
+    changeDisplay(sectionPrincipal, false);
+    changeDisplay(sectionGame, true);
 
     game.newGame();
 
@@ -117,11 +134,8 @@ document.getElementById("init").onclick = () => {
 //Establece la funcion del boton "Anhadir palabra"
 document.getElementById('new-word').onclick = () => {
     
-    sectionPalabra.className = 'display-container';
-
-    sectionPalabra.childNodes.forEach(element => {
-        element.className = 'display-children';
-    });
+    changeDisplay(sectionPrincipal, false);
+    changeDisplay(sectionPalabra, true);
 
 };
 
@@ -147,12 +161,9 @@ document.getElementById('push-word').onclick = () => {
 
 //Establece la funcion del boton "Cancelar" en la pantalla de "Anhadir palabra"
 document.getElementById('cancel').onclick = () => {
-    sectionPalabra.className = 'container';//Oculta la pantalla
+    changeDisplay(sectionPalabra, false);
+    changeDisplay(sectionPrincipal, true);
     inputPalabra.value = '';
-
-    sectionPalabra.childNodes.forEach(element => {//Oculta los hijos de la pantalla
-        element.className = 'container-children';
-    });
 };
 
 
@@ -166,13 +177,9 @@ document.getElementById("new-game").onclick = () => {
 //Establece la funcion del boton "Finalizar partida"
 document.getElementById("end").onclick = () => {
     
-    //Oculta la pantalla de juego, a sus hijos y al toggle de "Teclado en pantalla"
-    sectionGame.className = 'container';
+    changeDisplay(sectionGame, false);
+    changeDisplay(sectionPrincipal, true);
     toggleContainer.style.display = 'none';
-    
-    sectionGame.childNodes.forEach(element => {
-        element.className = 'container-children';
-    });
 
     resetKeys();
     game.endGame();//Finaliza el juego
