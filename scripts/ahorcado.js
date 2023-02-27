@@ -1,7 +1,6 @@
 import Game from "./game.js";
 
 let game = new Game();
-let tries = 0;
 
 const toggleContainer = document.getElementById('toggle-teclado');
 const toggle = document.getElementById('toggle');
@@ -37,7 +36,6 @@ function resetKeys() {//Reestablece el estilo de las teclas
         const element = keys[i];
         element.style = '';
     }
-    tries = 0;
 }
 
 //Valida que los valores ingresados en la pantalla de "Agregar palabra" 
@@ -73,17 +71,15 @@ for (let i = 0; i < keys.length; i++) {
     element.onclick = () => {
         document.dispatchEvent(new KeyboardEvent('keydown', {'key' : element.innerText}));
 
-        if(game.tryCount != tries) {
+        if(!game.isLastKeyCorrect) {
             element.style.borderColor = '#BE3144';
             element.style.color = '#BE3144'
-            tries = game.tryCount;
         } 
         else {
             element.style.borderColor = '#17B794';
             element.style.color = '#17B794'
         }
 
-        if(game.isOver || game.isLost) tries = 0;
     }
 
 }

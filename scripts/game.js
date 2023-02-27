@@ -22,6 +22,7 @@ export default class Game {
     #tryCount = 0;//Conteo de los intentos del usuario.
     #isOver = false;//Variable que controla si el juego ah terminado.
     #isLost = false;//Inidca si el juego se perdio (no se adivino la letra)
+    #isLastKeyCorrect = false;//Indica si la ultima letra ingresada por el usuario fue correcta
     #canvas = document.querySelector('canvas');
     #pincel = this.#canvas.getContext('2d');
     static #words = ["CASCADA", "JUGUETE", "MADERA", "BUHO", "MURCIELAGO", "JAVA", "MUEBLE", "PROGRAMAR", "PLUMA", "ALURA", "ORACLE"];//Contiene las palabras a utlizar en el juego.
@@ -103,6 +104,8 @@ export default class Game {
             }
 
         }//fin for
+
+        this.#isLastKeyCorrect = exist;
 
         if(!exist) {
 
@@ -237,6 +240,10 @@ export default class Game {
 
     get tryCount() {
         return this.#tryCount;
+    }
+
+    get isLastKeyCorrect() {
+        return this.#isLastKeyCorrect;
     }
 
 }
