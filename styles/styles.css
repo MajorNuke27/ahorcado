@@ -49,21 +49,22 @@ main {
 }
 
 footer {
-    height: 10%;
+    height: 10vh;
     display: flex;
+    flex-direction: column;
     background-color: #212121;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     color: #EEEEEE;
     font-family: 'Titillium Web', sans-serif;
 }
 
-footer div {
-    width: fit-content;
-}
-
 footer label {
     word-spacing: .3rem;
+}
+
+footer img {
+    height: 2rem;
 }
 
 /*Modificacion de las alertas*/
@@ -472,6 +473,10 @@ header #toggle-teclado {
         display: block;
         font-size: .9rem;
         text-align: center;
+    }
+
+    footer {
+        height: 7rem;
     }
 }
 
